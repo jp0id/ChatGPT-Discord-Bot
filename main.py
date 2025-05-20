@@ -3,7 +3,7 @@ import os
 import discord
 from dotenv import load_dotenv
 
-from src.chatgpt import ChatGPT, DALLE
+from src.chatgpt import ChatGPT
 from src.discordBot import DiscordClient, Sender
 from src.logger import logger
 from src.memory import Memory
@@ -15,9 +15,8 @@ load_dotenv()
 models = OpenAIModel(api_key=os.getenv('OPENAI_API'), model_engine=os.getenv('OPENAI_MODEL_ENGINE'),
                      base_url=os.getenv('BASE_URL'))
 
-memory = Memory(system_message=os.getenv('SYSTEM_MESSAGE'))
+memory = Memory(system_message='you are a helpful assistant.')
 chatgpt = ChatGPT(models, memory)
-dalle = DALLE(models)
 
 
 def run():
@@ -32,14 +31,6 @@ def run():
         await interaction.response.defer()
         receive = chatgpt.get_response(user_id, message)
         await sender.send_message(interaction, message, receive)
-
-    # @client.tree.command(name="imagine", description="Generate image from text")
-    # async def imagine(interaction: discord.Interaction, *, prompt: str):
-    #     if interaction.user == client.user:
-    #         return
-    #     await interaction.response.defer()
-    #     image_url = dalle.generate(prompt)
-    #     await sender.send_image(interaction, prompt, image_url)
 
     @client.tree.command(name="reset", description="Reset ChatGPT conversation history")
     async def reset(interaction: discord.Interaction):
