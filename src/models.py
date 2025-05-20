@@ -24,7 +24,7 @@ class OpenAIModel(ModelInterface):
             model=self.model_engine,
             messages=messages
         )
-        return response
+        return response.choices[0].message.content  # 直接返回文本内容
 
     def image_generation(self, prompt: str) -> str:
         response = openai.Image.create(

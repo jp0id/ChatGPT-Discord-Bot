@@ -33,13 +33,13 @@ def run():
         receive = chatgpt.get_response(user_id, message)
         await sender.send_message(interaction, message, receive)
 
-    @client.tree.command(name="imagine", description="Generate image from text")
-    async def imagine(interaction: discord.Interaction, *, prompt: str):
-        if interaction.user == client.user:
-            return
-        await interaction.response.defer()
-        image_url = dalle.generate(prompt)
-        await sender.send_image(interaction, prompt, image_url)
+    # @client.tree.command(name="imagine", description="Generate image from text")
+    # async def imagine(interaction: discord.Interaction, *, prompt: str):
+    #     if interaction.user == client.user:
+    #         return
+    #     await interaction.response.defer()
+    #     image_url = dalle.generate(prompt)
+    #     await sender.send_image(interaction, prompt, image_url)
 
     @client.tree.command(name="reset", description="Reset ChatGPT conversation history")
     async def reset(interaction: discord.Interaction):
