@@ -41,54 +41,15 @@ ChatGPT 串接到 Discord 上面，使得團隊在協作、溝通、效率上都
         5. 選擇欲加入的伺服器
         6. 按下 `繼續` > `授權`
 
-### 專案設置
-1. Fork Github 專案：
-    1. 註冊/登入 [GitHub](https://github.com/)
-    2. 進入 [ChatGPT-Discord-Bot](https://github.com/TheExplainthis/ChatGPT-Discord-Bot)
-    3. 點選 `Star` 支持開發者
-    4. 點選 `Fork` 複製全部的程式碼到自己的倉庫
-2. 部署（免費空間）：
-    1. 進入 [replit](https://replit.com/)
-    2. 點選 `Sign Up` 直接用 `Github` 帳號登入並授權 -> 按下 `Skip` 跳過初始化設定
-    3. 進入後中間主頁的部分點選 `Create` -> 跳出框，點選右上角 `Import from Github`
-    4. 若尚未加入 Github 倉庫，則點選連結 `Connect GitHub to import your private repos.` -> 勾選 `Only select repositories` -> 選擇 `ChatGPT-Discord-Bot`
-    5. 回到第四步，此時 `Github URL` 可以選擇 `ChatGPT-Discord-Bot` 專案 -> 點擊 `Import from Github`。
+## 运行
 
-### 專案執行
-1. 環境變數設定
-    1. 接續上一步 `Import` 完成後在 `Replit` 的專案管理頁面左下方 `Tools` 點擊 `Secrets`。
-    2. 右方按下 `Got it` 後，即可新增環境變數，需新增：
-        1. OpenAI API Token：
-            - key: `OPENAI_API`
-            - value: `[由上方步驟一取得] sk-FoXXXX`
-        2. 欲選擇的模型：
-            - key: `OPENAI_MODEL_ENGINE`
-            - value: `gpt-3.5-turbo`  
-        3. ChatGPT 要讓助理扮演的角色詞（目前官方無釋出更多的使用方法，由玩家自行測試）
-            - key: `SYSTEM_MESSAGE`
-            - value: `You are a helpful assistant.`
-        4. Discord Token:
-            - key: `DISCORD_TOKEN`
-            - value: `[由上方步驟一取得] MTA3NXXX`
-2. 開始執行
-    1. 點擊上方的 `Run`
-    2. 成功後右邊畫面會顯示 `Hello. I am alive!`，並將畫面中上方的**網址複製**下來，下一步驟會用到
-    - 注意：若一小時內沒有任何請求，則程式會中斷，因此需要下步驟
-3. CronJob 定時發送請求
-    1. 註冊/登入 [cron-job.org](https://cron-job.org/en/)
-    2. 進入後面板右上方選擇 `CREATE CRONJOB`
-    3. `Title` 輸入 `ChatGPT-Discord-Bot`，網址輸入上一步驟的網址
-    4. 下方則每 `5 分鐘` 打一次
-    5. 按下 `CREATE`
-
+`docker run --name -d discord-bot -e SYSTEM_MESSAGE="You are a helpful assistant." -e DISCORD_TOKEN="xxxxxxxx-asQ" -e OPENAI_MODEL_ENGINE="xxxx" -e OPENAI_API="xxxx" -e BASE_URL="https://xxxx/api/v3" jp0id/ai-discord-bot:latest`
 
 ## 指令
 | 指令 | 說明 |
 | --- | ----- |
 | `/chat` | 在輸入框直接輸入 `/chat` 會後綴 `message` 直接輸入文字，即可調用 ChatGPT 模型。|
 | `/reset` | ChatGPT 會記住前十次的問答紀錄，調用此指令則會清除。|
-| `/imagine` | 在輸入框輸入 `/imagine` 會後綴 `prompt` 直接輸入文字，會調用 DALL·E 2 模型，即可生成圖像。|
-
 
 ## 支持我們
 如果你喜歡這個專案，願意[支持我們](https://www.buymeacoffee.com/explainthis)，可以請我們喝一杯咖啡，這會成為我們繼續前進的動力！
