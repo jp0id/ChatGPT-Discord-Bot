@@ -15,8 +15,10 @@ class OpenAIModel(ModelInterface):
         openai.api_key = api_key
         self.model_engine = model_engine
         self.image_size = image_size
+        self.base_url = "https://ark.cn-beijing.volces.com/api/v3"
 
     def chat_completion(self, messages) -> str:
+        openai.api_base = self.base_url
         response = openai.ChatCompletion.create(
             model=self.model_engine,
             messages=messages
