@@ -12,7 +12,7 @@ class DiscordClient(discord.Client):
         self.synced = False
         self.added = False
         self.tree = discord.app_commands.CommandTree(self)
-        self.activity = discord.Activity(type=discord.ActivityType.watching, name="/chat | /reset")
+        self.activity = discord.Activity(type=discord.ActivityType.custom, name="我是牛逼的AI助手")
 
     async def on_ready(self):
         await self.wait_until_ready()
