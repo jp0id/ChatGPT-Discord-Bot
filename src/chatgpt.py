@@ -1,5 +1,5 @@
-from src.models import ModelInterface
 from src.memory import MemoryInterface
+from src.models import ModelInterface
 
 
 class ChatGPT:

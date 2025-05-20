@@ -1,6 +1,6 @@
-import os
 import logging
 import logging.handlers
+import os
 
 
 class CustomFormatter(logging.Formatter):

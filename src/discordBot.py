@@ -1,4 +1,5 @@
 import discord
+
 from src.logger import logger
 
 intents = discord.Intents.default()
@@ -11,7 +12,7 @@ class DiscordClient(discord.Client):
         self.synced = False
         self.added = False
         self.tree = discord.app_commands.CommandTree(self)
-        self.activity = discord.Activity(type=discord.ActivityType.watching, name="/chat | /reset | /imagine")
+        self.activity = discord.Activity(type=discord.ActivityType.watching, name="/chat | /reset")
 
     async def on_ready(self):
         await self.wait_until_ready()

@@ -1,19 +1,19 @@
-
 import os
 
-from dotenv import load_dotenv
 import discord
+from dotenv import load_dotenv
 
+from src.chatgpt import ChatGPT, DALLE
 from src.discordBot import DiscordClient, Sender
 from src.logger import logger
-from src.chatgpt import ChatGPT, DALLE
-from src.models import OpenAIModel
 from src.memory import Memory
+from src.models import OpenAIModel
 from src.server import keep_alive
 
 load_dotenv()
 
-models = OpenAIModel(api_key=os.getenv('OPENAI_API'), model_engine=os.getenv('OPENAI_MODEL_ENGINE'))
+models = OpenAIModel(api_key=os.getenv('OPENAI_API'), model_engine=os.getenv('OPENAI_MODEL_ENGINE'),
+                     base_url=os.getenv('BASE_URL'))
 
 memory = Memory(system_message=os.getenv('SYSTEM_MESSAGE'))
 chatgpt = ChatGPT(models, memory)

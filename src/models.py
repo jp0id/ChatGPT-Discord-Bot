@@ -1,4 +1,5 @@
 from typing import List, Dict
+
 import openai
 
 
@@ -11,11 +12,11 @@ class ModelInterface:
 
 
 class OpenAIModel(ModelInterface):
-    def __init__(self, api_key: str, model_engine: str, image_size: str = '512x512'):
+    def __init__(self, api_key: str, model_engine: str, base_url: str, image_size: str = '512x512'):
         openai.api_key = api_key
         self.model_engine = model_engine
         self.image_size = image_size
-        self.base_url = "https://ark.cn-beijing.volces.com/api/v3"
+        self.base_url = base_url
 
     def chat_completion(self, messages) -> str:
         openai.api_base = self.base_url
