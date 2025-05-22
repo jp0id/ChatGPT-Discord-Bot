@@ -23,7 +23,7 @@ def run():
     client = DiscordClient()
     sender = Sender()
 
-    @client.tree.command(name="chat", description="Have a chat with ChatGPT")
+    @client.tree.command(name="chat", description="与 AI BOT 聊天")
     async def chat(interaction: discord.Interaction, *, message: str):
         user_id = interaction.user.id
         if interaction.user == client.user:
@@ -32,14 +32,14 @@ def run():
         receive = chatgpt.get_response(user_id, message)
         await sender.send_message(interaction, message, receive)
 
-    @client.tree.command(name="reset", description="Reset ChatGPT conversation history")
+    @client.tree.command(name="reset", description="清除与 BOT 的历史聊天记录")
     async def reset(interaction: discord.Interaction):
         user_id = interaction.user.id
         logger.info(f"resetting memory from {user_id}")
         try:
             chatgpt.clean_history(user_id)
             await interaction.response.defer(ephemeral=True)
-            await interaction.followup.send(f'> Reset ChatGPT conversation history < - <@{user_id}>')
+            await interaction.followup.send(f'> 清除与BOT的历史聊天记录 < - <@{user_id}>')
         except Exception as e:
             logger.error(f"Error resetting memory: {e}")
             await interaction.followup.send('> Oops! Something went wrong. <')
