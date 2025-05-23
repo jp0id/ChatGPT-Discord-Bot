@@ -23,7 +23,7 @@ def run():
     client = DiscordClient()
     sender = Sender()
 
-    @client.tree.comand(name="chat", description="与 AI BOT 聊天")
+    @client.tree.command(name="chat", description="与 AI BOT 聊天")
     async def chat(interaction: discord.Interaction, *, message: str):
         user_id = interaction.user.id
         if interaction.user == client.user:
