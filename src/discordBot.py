@@ -29,8 +29,25 @@ class Sender():
     async def send_message(self, interaction, send, receive):
         try:
             user_id = interaction.user.id
-            response = f'> **{send}** - <@{str(user_id)}> \n\n {receive}'
-            await interaction.followup.send(response)
+            base_response = f'> **{send}** - <@{str(user_id)}> \n\n'
+            max_length = 1800 - len(base_response)  # 计算剩余可用长度
+
+            # 检查是否需要分段
+            if len(receive) <= max_length:
+                # 无需分段
+                response = base_response + receive
+                await interaction.followup.send(response)
+            else:
+                # 需要分段
+                await interaction.followup.send(base_response + receive[:max_length])
+
+                # 发送剩余部分
+                remaining = receive[max_length:]
+                while remaining:
+                    # 每次发送不超过1800字符的部分
+                    await interaction.followup.send(remaining[:1800])
+                    remaining = remaining[1800:]
+
             logger.info(f"{user_id} sent: {send}, response: {receive}")
         except Exception as e:
             await interaction.followup.send('> **Error: Something went wrong, please try again later!**')
